@@ -1,8 +1,6 @@
 package University.System.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -13,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Table(name = "Professor")
+@Entity
 public class Professor {
 
     @Setter(value = AccessLevel.NONE)
@@ -35,6 +34,10 @@ public class Professor {
     @NotNull
     @Column(name = "Degree")
     private Degree degree;
+
+    @OneToOne(mappedBy = "professor")//need to specify title of variable
+    @ToString.Exclude
+    private Course course;
 
     public Professor(String name, String surname, Degree degree) {
         setName(name);

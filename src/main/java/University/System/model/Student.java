@@ -1,18 +1,19 @@
 package University.System.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.util.Collection;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Table(name = "Student")
+@Entity
 public class Student {
     @Setter(value = AccessLevel.NONE)
     @Id
@@ -30,6 +31,10 @@ public class Student {
     @Size(min = 2, max = 10)
     @Column(name = "Surname")
     private String surname;
+
+    @OneToMany(mappedBy = "student")//need to specify another class variable
+    @ToString.Exclude
+    private Collection<Grade> grades;
 
 
 
